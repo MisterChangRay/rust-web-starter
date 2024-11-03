@@ -33,7 +33,7 @@ where
 // 表t_user, 这里字段可以少不能多，字段类型需要匹配, 驼峰也不能自动转换
 #[derive(sqlx::FromRow)]
 struct User { 
-    pub name: Option<String>, 
+    pub name: Option<String>, //option 表示可选, 允许空值字段必须要
     pub id: i64 , 
     pub phone: String, 
     pub password: String,    
