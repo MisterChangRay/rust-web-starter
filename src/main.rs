@@ -32,7 +32,6 @@ async fn main() {
     let version = env::var("VERSION").expect("VERSION 没有在 .env 文件里设置");
     let MYSQLURI = env::var("MYSQLURI").expect("VERSION 没有在 .env 文件里设置");
 
-
     let file_appender = tracing_appender::rolling::daily("./logs", "mylog");
     let (non_blocking, _guard) = tracing_appender::non_blocking(file_appender);
 
