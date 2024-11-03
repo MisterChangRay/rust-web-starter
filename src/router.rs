@@ -11,10 +11,11 @@ use axum::{
 use serde::Deserialize;
 use serde::Serialize;
 use serde_json::{Value, json};
-
+use std::{ fmt::Debug, time::Duration};
 use crate::controller;
 
 use tokio::task_local;
+use sqlx::{mysql::{MySql, MySqlPool, MySqlPoolOptions}, Pool};
 
 
 task_local! {
@@ -22,18 +23,25 @@ task_local! {
 }
 
 
-pub fn init()  -> Router {
+pub async  fn init(dburi:&String)  -> Router {
+    
+    let dbpool:Pool<MySql> = MySqlPoolOptions::new()
+    .max_connections(5)
+    .acquire_timeout(Duration::from_secs(3))
+    .connect(dburi)
+    .await
+    .expect("can't connect to database");
+
     let  route = Router::new()
     .route("/", get(|| async { "Hello, World!" }))
     .route("/path/:user_id", get(controller::path))
     .route("/query", get(controller::query))
     .route("/json", post(controller::postjson))
     .route(
-        "/addusers",
-        post({
-            move |body| controller::create_user(body)
-        }),
+        "/addusers/:id",
+        post(controller::create_user),
     )
+    .with_state(dbpool)
     // .route_layer(middleware::from_fn(auth))
     ;
     route

@@ -14,3 +14,4 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-appender = "0.2"
 dotenv = "0.15.0"
+sqlx = {version="0.8.2", features = ["runtime-tokio-rustls", "any", "mysql","time","chrono"]}
