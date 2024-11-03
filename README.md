@@ -26,3 +26,5 @@ windows上编译Linux软件，使用 wls 进行编译
 6. windows文件浏览器打开`\\wsl.localhost\Ubuntu\root`即可看到文件，记得下载后删除
 7. 拿着打好的文件到目标系统去执行测试吧
 
+
+[参考资料](https://juejin.cn/post/7380163683009495103)
